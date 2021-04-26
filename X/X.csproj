@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net6.0;net472</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\B\B.csproj" ReferenceOutputAssembly="false" OutputItemType="BStuff" />
+    <ProjectReference Include="..\C\C.csproj" ReferenceOutputAssembly="false" OutputItemType="CStuff" />
+    <ProjectReference Include="..\D\D.csproj" ReferenceOutputAssembly="false" OutputItemType="DStuff" />
+  </ItemGroup>
+
+  <Target Name="Add_B" AfterTargets="AfterResolveReferences">
+    <ItemGroup>
+      <None Include="@(BStuff)" CopyToOutputDirectory="PreserveNewest">
+	<Link>Bplugin\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      </None>
+    </ItemGroup>
+    <Message Importance="High" Text="BStuff: @(BStuff)" />
+  </Target>
+
+  <Target Name="Add_C" AfterTargets="AfterResolveReferences">
+    <ItemGroup>
+      <None Include="@(CStuff)" CopyToOutputDirectory="PreserveNewest">
+	<Link>Cplugin\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      </None>
+    </ItemGroup>
+    <Message Importance="High" Text="CStuff: @(CStuff)" />
+  </Target>
+
+  <Target Name="Add_D" AfterTargets="AfterResolveReferences">
+    <ItemGroup>
+      <None Include="@(DStuff)" CopyToOutputDirectory="PreserveNewest">
+	<Link>Dplugin\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      </None>
+    </ItemGroup>
+    <Message Importance="High" Text="DStuff: @(DStuff)" />
+  </Target>
+
+</Project>
